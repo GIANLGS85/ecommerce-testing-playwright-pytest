@@ -1,0 +1,4 @@
+[32mINFO    [0m pages.login_page:login_page.py:28 Logging in as: customer@practicesoftwaretesting.com
+[32mINFO    [0m test_checkout:test_checkout.py:28 Authenticated. now searching for product: Hammer
+[32mINFO    [0m pages.home_page:home_page.py:88 Searching for product: Hammer
+[32mINFO    [0m pages.home_page:home_page.py:92 Searched for product: Hammer

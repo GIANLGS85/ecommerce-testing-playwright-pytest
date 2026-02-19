@@ -1,0 +1,1 @@
+INFO     test_checkout:test_checkout.py:35 Verifying price: Expected 19.98, Got <coroutine object CartPage.get_final_price at 0x739c67b53e60>

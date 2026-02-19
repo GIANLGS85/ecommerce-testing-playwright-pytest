@@ -1,0 +1,7 @@
+[32mINFO    [0m pages.login_page:login_page.py:28 Logging in as: customer@practicesoftwaretesting.com
+[32mINFO    [0m test_checkout:test_checkout.py:28 Authenticated. now searching for product: Hammer
+[32mINFO    [0m pages.home_page:home_page.py:88 Searching for product: Hammer
+[32mINFO    [0m pages.home_page:home_page.py:92 Searched for product: Hammer
+[32mINFO    [0m pages.home_page:home_page.py:97 clicked on product: Hammer
+[32mINFO    [0m pages.home_page:home_page.py:105 Added 2 item(s) to cart.
+[32mINFO    [0m test_checkout:test_checkout.py:39 Verifying price: Expected 25.16, Got 25.16

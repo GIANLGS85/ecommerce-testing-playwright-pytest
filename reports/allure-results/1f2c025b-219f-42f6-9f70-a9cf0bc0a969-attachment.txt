@@ -1,0 +1,2 @@
+[32mINFO    [0m pages.login_page:login_page.py:24 Navigating to login page: https://practicesoftwaretesting.com/auth/login
+[32mINFO    [0m pages.login_page:login_page.py:29 Logging in as: customer@practicesoftwaretesting.com

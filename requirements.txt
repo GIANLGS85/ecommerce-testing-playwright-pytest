@@ -1,0 +1,21 @@
+# --- Core Automation Framework ---
+pytest>=7.4.0           # Main Test Framework
+playwright>=1.40.0      # Playwright Core Library
+pytest-playwright>=0.4.0 # Playwright plugin for Pytest (provides fixtures like page and context)
+
+# --- Data Driven & ETL (Data Processing) ---
+pandas>=2.1.0           # Processing Excel/CSV test data
+numpy>=1.26.0           # Supports Pandas operations
+openpyxl>=3.1.2         # Reading and writing Excel files
+
+# --- Database Verification ---
+pymysql>=1.1.0          # MySQL connection for financial/transactional verification
+sqlalchemy>=2.0.23      # ORM tool for database interactions
+
+# --- Reporting & Logging ---
+allure-pytest>=2.13.2   # Generates Allure visual test reports
+
+# --- Environment & Utilities ---
+python-dotenv>=1.0.0    # Manages sensitive environment variables (.env)
+requests>=2.31.0        # API helper for integration testing
+pytest-asyncio
