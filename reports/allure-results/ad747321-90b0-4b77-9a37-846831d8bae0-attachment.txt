@@ -1,2 +1,0 @@
-[32mINFO    [0m test_checkout:test_checkout.py:28 Authenticated. now searching for product: Hammer
-[32mINFO    [0m pages.home_page:home_page.py:86 Searching for product: Hammer

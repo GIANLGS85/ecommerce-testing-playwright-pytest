@@ -1,5 +1,0 @@
-[32mINFO    [0m test_checkout:test_checkout.py:28 Authenticated. now searching for product: Hammer
-[32mINFO    [0m pages.home_page:home_page.py:88 Searching for product: Hammer
-[32mINFO    [0m pages.home_page:home_page.py:92 Searched for product: Hammer
-[32mINFO    [0m pages.home_page:home_page.py:96 clicked on product: Hammer
-[32mINFO    [0m pages.home_page:home_page.py:104 Added 2 item(s) to cart.

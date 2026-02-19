@@ -1,3 +1,0 @@
-[32mINFO    [0m pages.login_page:login_page.py:24 Navigating to login page: https://practicesoftwaretesting.com/auth/login
-[32mINFO    [0m pages.login_page:login_page.py:29 Logging in as: customer@practicesoftwaretesting.com
-[32mINFO    [0m pages.cart_page:cart_page.py:38 Searching for product: Hammer
