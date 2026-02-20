@@ -290,16 +290,16 @@ def page_setup(page, request):
 
 
 # @pytest.fixture
-# def home_page(page):
+# def home_page_obj(page):
 #     """
 #     Provides HomePage instance
 #     
 #     Usage in tests:
-#         def test_search(home_page):
-#             home_page.navigate()
-#             home_page.search("product")
+#         def test_search(home_page_obj):
+#             home_page_obj.navigate()
+#             home_page_obj.search("product")
 #     """
-#     from pages.home_page import HomePage
+#     from pages.home_page_obj import HomePage
 #     return HomePage(page)
 
 

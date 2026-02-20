@@ -119,9 +119,9 @@ def home_page_obj(page: Page) -> HomePage:
     Provides HomePage instance with automatic navigation.
 
     Usage:
-        def test_homepage(home_page: HomePage):
-            home_page.search_for_product("hammer")
-            assert home_page.get_product_count() > 0
+        def test_homepage(home_page_obj: HomePage):
+            home_page_obj.search_for_product("hammer")
+            assert home_page_obj.get_product_count() > 0
     """
     home_page_obj = HomePage(page)
     page.goto(Config.BASE_URL)
@@ -219,10 +219,10 @@ def wait_for_animation(page: Page):
     Provides a function to wait for CSS animations.
 
     Usage:
-        def test_modal(home_page: HomePage, wait_for_animation):
-            home_page.open_modal_button.click()
+        def test_modal(home_page_obj: HomePage, wait_for_animation):
+            home_page_obj.open_modal_button.click()
             wait_for_animation(500)  # Wait 500ms
-            expect(home_page.modal).to_be_visible()
+            expect(home_page_obj.modal).to_be_visible()
     """
 
     def wait(milliseconds: int = 300):
@@ -241,9 +241,9 @@ def search_term(request):
     Test runs once for each parameter.
 
     Usage:
-        def test_search_products(home_page: HomePage, search_term: str):
+        def test_search_products(home_page_obj: HomePage, search_term: str):
             # This test runs 3 times (hammer, screwdriver, pliers)
-            home_page.search_for_product(search_term)
-            assert home_page.get_product_count() > 0
+            home_page_obj.search_for_product(search_term)
+            assert home_page_obj.get_product_count() > 0
     """
     return request.param

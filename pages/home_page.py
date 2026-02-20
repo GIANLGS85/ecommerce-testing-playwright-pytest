@@ -16,9 +16,9 @@ class HomePage(BasePage):
     Defines locators and actions specific to home page.
     
     Example:
-        home_page = HomePage(page)
-        home_page.search_for_product("Thor hammer")
-        home_page.signin_link.click()
+        home_page_obj = HomePage(page)
+        home_page_obj.search_for_product("Thor hammer")
+        home_page_obj.signin_link.click()
     """
     
     def __init__(self, page: Page):
