@@ -28,7 +28,7 @@ class CartPage(BasePage):
         clean_price = price_str.replace("$", "").replace(",", "").strip()
         return int(clean_price)
 
-    def get_final_price(self) -> int:
+    def get_final_price(self) -> float:
         """Retrieves the final amount from the checkout page."""
         expect(self.locators.total_price_text).to_be_visible()
         price_str = self.locators.total_price_text.text_content()
