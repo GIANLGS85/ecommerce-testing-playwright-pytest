@@ -45,6 +45,11 @@ TEST_PWD =  Config.TEST_PWD
 # ============================================================================
 # AUTHENTICATION PAGE FIXTURE
 # ============================================================================
+@pytest.fixture()
+def delete_store_state():
+    """Delete storage state file before tests to ensure clean state."""
+    if os.path.exists(AUTH_FILE):
+        os.remove(AUTH_FILE)
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args):
@@ -56,7 +61,7 @@ def browser_context_args(browser_context_args):
         }
     return {**browser_context_args, "viewport": {"width": 1280, "height": 800}}
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session", autouse=False)
 def setup_session(browser):
     """Login una volta e salva lo storage state."""
     if os.path.exists(AUTH_FILE): os.remove(AUTH_FILE)

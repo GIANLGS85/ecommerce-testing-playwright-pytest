@@ -2,6 +2,7 @@ import pytest
 import logging
 
 from config.config import Config
+from conftest import browser
 from pages.cart_page import CartPage
 from pages.home_page import HomePage
 from utils.data_loader import get_csv_data
@@ -12,6 +13,7 @@ TEST_DATA = get_csv_data("test_orders.csv")
 
 logger = logging.getLogger(__name__)
 
+@pytest.mark.usefixtures("setup_session")
 @pytest.mark.parametrize("data", TEST_DATA)
 def test_checkout_process(authenticated_page, data):
     """

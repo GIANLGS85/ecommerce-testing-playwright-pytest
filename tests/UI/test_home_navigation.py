@@ -1,28 +1,19 @@
 import re
+import pytest
 from playwright.sync_api import expect
 from pages.home_page import HomePage
 import logging 
 
 logger = logging.getLogger(__name__)
 
-
+@pytest.mark.usefixtures("delete_store_state")
 def test_home_login_link_navigates_to_login(home_page_obj: HomePage):
     '''
     Click “Login”
     Assert URL contains /login
     '''
-    
-    print("Actual object type:", type(home_page_obj)) 
-    print("HomePage class file:", home_page_obj.__class__.__module__)
-    print("Methods in object:", dir(home_page_obj))
 
-    logger.info(f"Actual object type: {type(home_page_obj)}")
-    logger.info(f"HomePage class file: {home_page_obj.__class__.__module__}") 
-    logger.info(f"Methods in object: {dir(home_page_obj)}")
-    
-    
     home_page_obj.locators.signin_link.click()
-    
     # ✅ Use BasePage method for assertion
     home_page_obj.assert_url_contains("/auth/login")
     
