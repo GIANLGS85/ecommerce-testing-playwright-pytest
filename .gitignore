@@ -117,3 +117,5 @@ dmypy.json
 
 /playwright/.auth/
 /tests/UI-UnstableTests/
+/reports/
+/results_Playwright/
