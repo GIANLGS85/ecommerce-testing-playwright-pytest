@@ -2,7 +2,6 @@ import os
 import random
 import pytest
 from playwright.sync_api import Page
-# from pytest_playwright.pytest_playwright import page
 from config.config import Config
 from utils.api_client import APIClient
 from utils.helpers import Helpers
@@ -17,30 +16,6 @@ AUTH_FILE = "playwright/.auth/user.json"
 TEST_USER =  Config.TEST_USER
 TEST_PWD =  Config.TEST_PWD
 
-#
-# @pytest.fixture(scope="function", autouse=False)
-# def setup_auth(browser: Browser):
-#     login_page = browser.new_page()
-#     login_page.goto(Config.LOGIN_URL)
-#     login_page.locator('[data-test="email"]').fill(Config.TEST_USER)
-#     login_page.locator('[data-test="password"]').fill(Config.TEST_PWD)
-#     login_page.locator('[data-test="login-submit"]').click()
-#     expect(login_page.locator('[data-test="page-title"]')).to_have_text("My account")
-#     #expect(login_page.get_by_label("Page context").locator("span")).to_have_text("My Account")
-#     # Save the auth file after succesfully login
-#     login_page.context.storage_state(path=AUTH_FILE)
-#     login_page.close()
-#     yield
-#     os.remove(AUTH_FILE)
-#
-# # Load auth file and return logged-in page
-# @pytest.fixture
-# def user_page(browser: Browser):
-#     context = browser.new_context(storage_state=AUTH_FILE)
-#     page = context.new_page()
-#     yield page #return the logged page
-#     context.close()
-# ============================================================================
 
 # ============================================================================
 # AUTHENTICATION PAGE FIXTURE
@@ -63,21 +38,31 @@ def browser_context_args(browser_context_args):
 
 @pytest.fixture(scope="session", autouse=False)
 def setup_session(browser):
+    #check if it is running on CI environment.
+    is_ci = os.getenv("CI") == "true"
     """Login una volta e salva lo storage state."""
     if os.path.exists(AUTH_FILE): os.remove(AUTH_FILE)
+
     if not os.path.exists(AUTH_FILE):
-        context = browser.new_context()
+        context = browser.new_context(
+            # User-agent realistico per evitare il Cloudflare block
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            ignore_https_errors=True,
+        )
+
+
         page = context.new_page()
 
         login_page = LoginPage(page)
-
         page.goto(Config.LOGIN_URL)
+
+        # wait for Cloudflare
+        page.wait_for_load_state("networkidle")
 
         with page.expect_navigation():
             login_page.login(TEST_USER, TEST_PWD)
 
         page.wait_for_load_state("networkidle")
-
         context.storage_state(path=AUTH_FILE)
         context.close()
 
@@ -100,18 +85,6 @@ def api_client(playwright):
 @pytest.fixture
 def utils():
     return Helpers()
-#
-# @pytest.fixture(scope="session")
-# def browser_context_args(browser_context_args):
-#     """
-#     Configures the browser context (e.g., viewport size, locale).
-#     """
-#     return {
-#         **browser_context_args,
-#         "viewport": {"width": 1280, "height": 800},
-#         "locale": "en-US"  # setting to en-US for international compatibility
-#     }
-#
 
 @pytest.fixture
 def home_page_obj(page: Page) -> HomePage:
@@ -132,7 +105,6 @@ def home_page_obj(page: Page) -> HomePage:
 def login_page(page: Page) -> LoginPage:
     """LoginPage instance"""
     return LoginPage(page)
-
 
 
 #============================================================================

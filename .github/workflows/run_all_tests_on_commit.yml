@@ -12,6 +12,8 @@ jobs:
     # Use the official Playwright image which includes Python and Browsers
     container:
       image: mcr.microsoft.com/playwright/python:v1.58.0-jammy 
+    env:
+        HOME: /root # Set HOME to /root to ensure Playwright can find its configuration and cache directories
 
     steps:
     - uses: actions/checkout@v4
@@ -38,7 +40,9 @@ jobs:
     - name: Run Playwright tests
       # I am not running 'playwright install' because they are in the image
       # run the tests in parallel
-      run: pytest -n auto --browser chromium --browser firefox
+      run: pytest -n auto --browser chromium --browser firefox \
+        --html=reports/report.html \
+        --alluredir=allure-results
 
     - name: Upload Test Reports
       if: always()
@@ -49,5 +53,5 @@ jobs:
           reports/
           results_Playwright/
           allure-results/
-          retention-days: 30
+        retention-days: 30
         

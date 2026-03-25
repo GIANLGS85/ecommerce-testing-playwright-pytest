@@ -29,7 +29,7 @@ results_Playwright/
 
 ============================================================================
 """
-
+import os
 import pytest
 from datetime import datetime
 from pathlib import Path
@@ -439,12 +439,12 @@ pytest_plugins = [
 ]
 '''
 
-
-# Add to your existing conftest.py for test_site_health.py and test_quick_scan.py
-
 @pytest.fixture(scope="session")
 def browser(browser_type):
-    """Browser instance for tests"""
-    browser = browser_type.launch(headless=False, slow_mo=500)
+    is_ci = os.getenv("CI") == "true"
+    browser = browser_type.launch(
+        headless=is_ci,
+        slow_mo=0 if is_ci else 500
+    )
     yield browser
     browser.close()

@@ -100,7 +100,5 @@ ecommerce-playwright-pytest/
 │   └── .auth/    # used to store session cookies
 ├── conftest.py
 └── requirements.txt
-
 ```
-```text
 
