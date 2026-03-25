@@ -43,8 +43,7 @@ jobs:
 
     - name: Run Playwright tests
       # I am not running 'playwright install' because they are in the image
-      # run the tests in parallel
-      run: pytest -n auto --browser chromium --browser firefox \
+      run: pytest --browser chromium --browser firefox \
         --html=reports/report.html \
         --alluredir=allure-results
 
