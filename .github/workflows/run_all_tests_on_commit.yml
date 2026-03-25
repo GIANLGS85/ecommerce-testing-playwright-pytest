@@ -43,9 +43,7 @@ jobs:
 
     - name: Run Playwright tests
       # I am not running 'playwright install' because they are in the image
-      run: pytest --browser chromium --browser firefox \
-        --html=reports/report.html \
-        --alluredir=allure-results
+      run: pytest --browser chromium --browser firefox --html=reports/report.html --alluredir=allure-results
 
     - name: Upload Test Reports
       if: always()
