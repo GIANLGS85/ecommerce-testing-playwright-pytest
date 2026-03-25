@@ -37,7 +37,7 @@ jobs:
     - name: Run Playwright tests
       # I am not running 'playwright install' because they are in the image,
       # but we use the flag --browser to specify which ones to run.
-      run: pytest --browser chromium --browser chrome
+      run: pytest --browser chromium --browser chromium
 
     - name: Upload Report
       if: always()
