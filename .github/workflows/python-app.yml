@@ -23,6 +23,14 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint with flake8
+    # MEMO: 
+    # that specific flake8 command is designed to be a "Smoke Test" for the code syntax. 
+    # The flags --select=E9,F63,F7,F82 tell Flake8 to look only for "catastrophic" errors, 
+    # such as:
+    # E9: Syntax errors (e.g., a missing parenthesis).
+    # F63: Logic issues (e.g., using is with a constant).
+    # F7: Break/Continue statements outside of loops.
+    # F82: Undefined names (e.g., calling a variable you never created).
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
