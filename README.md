@@ -41,16 +41,45 @@ It adopts the Page Object Model (POM) architecture and supports CSV‑driven tes
 
 ---
 
+---
+## Running Tests
+
+### Local Development
+```bash
+# Single browser
+pytest --browser chromium
+
+# Multiple browsers
+pytest --browser chromium --browser firefox
+
+# Headless (faster)
+pytest --browser chromium --headed false
+
+# Parallel execution
+pytest -n auto --browser chromium
+```
+
+### CI/CD (GitHub Actions)
+Tests run automatically on push/PR to `main` with:
+```bash
+pytest -n auto --browser chromium --browser firefox
+```
+
+### Notes
+- `--browser` must always be specified in CLI (not in `pytest.ini`)
+- Default behavior without `--browser`: pytest-playwright will raise an error
+- Available browsers: `chromium`, `firefox`, `webkit`
+---
+
 ## Project Structure
 The project uses a standard layered architecture to ensure high readability and scalability:
 ```text
 ecommerce-playwright-pytest/
-│ 
 ├── pages/
 │   ├── components/
+│   │   ├── __init__.py
 │   │   ├── header.py
 │   │   ├── filters.py
-│   │   ├── __init__.py
 │   │   ├── search_bar.py
 │   │   ├── product_grid.py
 │   │   └── project_locators/
@@ -65,40 +94,36 @@ ecommerce-playwright-pytest/
 │   └── product_details_page.py
 ├── tests/
 │   ├── UI/
-│   │   ├── __init__.py
 │   │   ├── test_checkout.py
 │   │   ├── test_Discovery.py
 │   │   ├── test_home_search.py
 │   │   ├── test_home_filters.py
 │   │   └── test_home_navigation.py
 │   ├── API/
-│   │   ├── __init__.py
 │   │   ├── test_brands.py
 │   │   └── test_products.py
-│   ├── SmokeTests/
-│   │   ├── __init__.py
+│   ├── SmokeTests/y
 │   │   ├── test_home_smoke.py
 │   │   └── test_home_open_MINI.py
-│   ├── __init__.py
 │   ├── conftest.py
 │   ├── test_login.py
 │   └── UI-UnstableTests/
 ├── utils/
-│   ├── helpers.py
 │   ├── __init__.py
+│   ├── helpers.py
 │   ├── api_client.py
 │   └── data_loader.py
 ├── config/
-│   ├── config.py
-│   └── __init__.py
-├── LICENSE
-├── README.md
+│   ├── __init__.py
+│   └── config.py
 ├── test_data/
 │   ├── test_orders.csv
 │   └── checkout_data.csv
 ├── playwright/
 │   └── .auth/    # used to store session cookies
-├── conftest.py
+├── conftest.py   #Global conftest - pytest configuration
+├── LICENSE
+├── README.md
 └── requirements.txt
 ```
 
