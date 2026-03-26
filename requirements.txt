@@ -18,4 +18,10 @@ allure-pytest>=2.13.2   # Generates Allure visual test reports
 # --- Environment & Utilities ---
 python-dotenv>=1.0.0    # Manages sensitive environment variables (.env)
 requests>=2.31.0        # API helper for integration testing
+
 pytest-asyncio
+
+pytest-xdist
+pytest-html
+allure-pytest
+flake8

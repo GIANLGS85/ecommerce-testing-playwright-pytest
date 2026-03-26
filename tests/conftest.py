@@ -69,6 +69,8 @@ def setup_session(browser):
 @pytest.fixture(scope="function")
 def authenticated_page(page):
     page.goto(Config.BASE_URL)
+    # Trying to skip Cloudflare block trying to validate the browser "silently"
+    page.wait_for_timeout(5000)
     return page
 
 # ============================================================================
