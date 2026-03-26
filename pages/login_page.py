@@ -22,6 +22,7 @@ class LoginPage(BasePage):
         """Navigate to login page."""
         logger.info(f"Navigating to login page: {Config.LOGIN_URL}")
         self.page.goto(Config.LOGIN_URL)
+        self.page.wait_for_timeout(5000)
 
     def login(self, email: str, password: str):
         """Perform login."""

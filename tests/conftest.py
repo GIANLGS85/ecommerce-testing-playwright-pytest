@@ -55,6 +55,7 @@ def setup_session(browser):
 
         login_page = LoginPage(page)
         page.goto(Config.LOGIN_URL)
+        page.wait_for_timeout(5000)
 
         # wait for Cloudflare
         page.wait_for_load_state("networkidle")
@@ -100,6 +101,7 @@ def home_page_obj(page: Page) -> HomePage:
     """
     home_page_obj = HomePage(page)
     page.goto(Config.BASE_URL)
+    page.wait_for_timeout(5000)
 
     return home_page_obj
 

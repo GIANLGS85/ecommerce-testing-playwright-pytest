@@ -50,6 +50,7 @@ class BasePage:
         """
         logger.info(f"Navigating to: {url}")
         self.page.goto(url)
+        self.page.wait_for_timeout(5000)
         self.wait_for_page_load()
     
     def refresh(self):
