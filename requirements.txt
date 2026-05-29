@@ -3,6 +3,10 @@ pytest>=7.4.0           # Main Test Framework
 playwright>=1.40.0      # Playwright Core Library
 pytest-playwright>=0.4.0 # Playwright plugin for Pytest (provides fixtures like page and context)
 
+# --- Cloudflare Bypass (NEW) ---
+cloudscraper>=1.2.71    # Bypass Cloudflare JS Challenge automatically
+playwright-stealth>=1.0.0 # Hide Playwright from bot detection
+
 # --- Data Driven & ETL (Data Processing) ---
 pandas>=2.1.0           # Processing Excel/CSV test data
 numpy>=1.26.0           # Supports Pandas operations
