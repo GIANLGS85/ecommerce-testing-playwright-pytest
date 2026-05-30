@@ -1,10 +1,9 @@
 import os
 import random
-import time
 import pytest
 import logging
 from playwright.sync_api import Page
-from playwright_stealth import stealth  # Cloudflare bypass: stealth mode
+from playwright_stealth import Stealth  # Cloudflare bypass: stealth mode
 from config.config import Config
 from utils.api_client import APIClient
 from utils.helpers import Helpers
@@ -138,7 +137,7 @@ def setup_session(browser):
             logger.info("-" * 70)
             
             try:
-                stealth(page)
+                Stealth().apply_stealth_sync(page)
                 logger.info("✓ Stealth mode applied (hides Playwright from bot detection)")
                 
             except Exception as stealth_error:
@@ -262,14 +261,24 @@ def authenticated_page(page):
     Apply stealth mode to hide Playwright from bot detection.
     """
     # Apply stealth mode
-    stealth(page)
+    Stealth().apply_stealth_sync(page)
     logger.info("✓ Stealth mode applied to authenticated_page")
     
-    page.set_default_timeout(Config.DEFAULT_TIMEOUT)
-    page.goto(Config.BASE_URL)
+    # Set longer timeout for Cloudflare and network issues
+    page.set_default_timeout(Config.CLOUDFLARE_TIMEOUT)
     
-    # Small wait to ensure page is ready
-    page.wait_for_timeout(2000)
+    try:
+        page.goto(Config.BASE_URL, wait_until="domcontentloaded", timeout=Config.CLOUDFLARE_TIMEOUT)
+        # Wait for network to be idle
+        try:
+            page.wait_for_load_state("networkidle", timeout=Config.CLOUDFLARE_TIMEOUT)
+        except Exception as e:
+            logger.warning(f"⚠️  Network idle timeout (continuing): {e}")
+            page.wait_for_timeout(2000)
+    except Exception as e:
+        logger.warning(f"⚠️  Page load error (continuing): {e}")
+        page.wait_for_timeout(2000)
+    
     logger.info(f"✓ Navigated to: {Config.BASE_URL}")
     
     return page
@@ -311,8 +320,18 @@ def home_page_obj(page: Page) -> HomePage:
             assert home_page_obj.get_product_count() > 0
     """
     home_page_obj = HomePage(page)
-    page.goto(Config.BASE_URL)
-    page.wait_for_timeout(5000)
+    page.set_default_timeout(Config.CLOUDFLARE_TIMEOUT)
+    
+    try:
+        page.goto(Config.BASE_URL, wait_until="domcontentloaded", timeout=Config.CLOUDFLARE_TIMEOUT)
+        try:
+            page.wait_for_load_state("networkidle", timeout=Config.CLOUDFLARE_TIMEOUT)
+        except Exception as e:
+            logger.warning(f"⚠️  Network idle timeout (continuing): {e}")
+            page.wait_for_timeout(2000)
+    except Exception as e:
+        logger.error(f"❌ Failed to navigate to {Config.BASE_URL}: {e}")
+        raise
 
     return home_page_obj
 
