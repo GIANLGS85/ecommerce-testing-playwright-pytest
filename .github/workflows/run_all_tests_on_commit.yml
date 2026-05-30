@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     # Use the official Playwright image which includes Python and Browsers
     container:
-      image: mcr.microsoft.com/playwright/python:v1.58.0-jammy 
+      image: mcr.microsoft.com/playwright/python:v1.60.0-jammy
     env:
         HOME: /root # Set HOME to /root to ensure Playwright can find its configuration and cache directories
         CI: "true"  # Enable CI mode detection
